@@ -210,30 +210,30 @@ int funcion_evaluacion_pdc(vector<vector<int>> rueda1, vector<vector<int>> rueda
 
     int evaluacion = 0;
 
-    int peso_solicitudes_no_jugar_como_local = 60; //R1
-    int peso_break_primeras_ultimas_fechas = 90; //R2 y R3
-    int peso_maximo_3partidos_local_visitante = 100; //R4
-    int peso_cant_fechas_rival_nuevamente = 60; //R5
+    int peso_solicitudes_no_jugar_como_local = 60; //C04
+    int peso_break_primeras_ultimas_fechas = 90; //C12a y C12b
+    int peso_maximo_3partidos_local_visitante = 100; //C13 y C14
+    int peso_cant_fechas_rival_nuevamente = 60; //C19
 
-    int peso_equipos_fuertes_previa_prelibertadores = 15; //R6.1
-    int peso_equipos_fuertes_posterior_prelibertadores = 15; //R6.2
-    int peso_equipos_fuertes_previa_libertadores = 60; //R6.3
-    int peso_equipos_fuertes_posterior_libertadores = 55; //R6.4
-    int peso_equipos_fuertes_previa_sudamericana = 20; //R6.5
-    int peso_equipos_fuertes_posterior_sudamericana = 20; //R6.6
+    int peso_equipos_fuertes_previa_prelibertadores = 15; //C208a
+    int peso_equipos_fuertes_posterior_prelibertadores = 15; //C208b
+    int peso_equipos_fuertes_previa_libertadores = 60; //C208c
+    int peso_equipos_fuertes_posterior_libertadores = 55; //C208d
+    int peso_equipos_fuertes_previa_sudamericana = 20; //C208e
+    int peso_equipos_fuertes_posterior_sudamericana = 20; //C208f
 
-    int peso_equipos_zonas = 50; //R7
-    int peso_equipos_fuertes_primeras_fechas = 80; //R8
+    int peso_equipos_zonas = 50; //C205a, C205b, C205c
+    int peso_equipos_fuertes_primeras_ultimas_fechas = 80; //C203
 
-    int peso_localias_clasicos = 100; //R9
+    int peso_localias_clasicos = 100; //C204
 
-    int peso_enfrentamientos_consecutivos_fuertes = 70; //R10
+    int peso_enfrentamientos_consecutivos_fuertes = 70; //C201
 
-    int peso_vacaciones_equipos_fuertes = 30; //R11
+    int peso_vacaciones_equipos_fuertes = 30; //C207
 
-    int peso_partidos_santiago = 50; //R12
+    int peso_partidos_santiago = 50; //C207
 
-    int peso_balance_localias_rueda = 200; //R13
+    int peso_balance_localias_rueda = 200; //C202
 
     //generando vectores para solicitudes de no jugar como local
     vector<int> aux_equipos_solicitud_visitante;
@@ -310,7 +310,7 @@ int funcion_evaluacion_pdc(vector<vector<int>> rueda1, vector<vector<int>> rueda
 
     //R8
     vector<int> fechas_evitar_fuertes = {1,2,3,28,29,30};
-    evaluacion += enfrentamientos_entre_equipos_fuertes(rueda1, rueda2, equipos_fuertes, fechas_evitar_fuertes)*peso_equipos_fuertes_primeras_fechas/2;
+    evaluacion += enfrentamientos_entre_equipos_fuertes(rueda1, rueda2, equipos_fuertes, fechas_evitar_fuertes)*peso_equipos_fuertes_primeras_ultimas_fechas/2;
 
     //R9
     evaluacion += clasicos_local_visitante(rueda1, rueda2, equipos_fuertes)*peso_localias_clasicos;
@@ -335,30 +335,30 @@ void print_costo_restricciones_pdc(vector<vector<int>> rueda1, vector<vector<int
     vector<int> fechas_previas_prelibertadores, vector<int> fechas_posteriores_prelibertadores, vector<int> fechas_previas_libertadores, vector<int> fechas_posteriores_libertadores, vector<int> fechas_previas_sudamericana,
     vector<int> fechas_posteriores_sudamericana, vector<vector<int>> solicituedes_visitante){
 
-    int peso_solicitudes_no_jugar_como_local = 60; //R1
-    int peso_break_primeras_ultimas_fechas = 90; //R2 y R3
-    int peso_maximo_3partidos_local_visitante = 100; //R4
-    int peso_cant_fechas_rival_nuevamente = 60; //R5
+    int peso_solicitudes_no_jugar_como_local = 60; //C04
+    int peso_break_primeras_ultimas_fechas = 90; //C12a y C12b
+    int peso_maximo_3partidos_local_visitante = 100; //C13 y C14
+    int peso_cant_fechas_rival_nuevamente = 60; //C19
 
-    int peso_equipos_fuertes_previa_prelibertadores = 15; //R6.1
-    int peso_equipos_fuertes_posterior_prelibertadores = 15; //R6.2
-    int peso_equipos_fuertes_previa_libertadores = 60; //R6.3
-    int peso_equipos_fuertes_posterior_libertadores = 55; //R6.4
-    int peso_equipos_fuertes_previa_sudamericana = 20; //R6.5
-    int peso_equipos_fuertes_posterior_sudamericana = 20; //R6.6
+    int peso_equipos_fuertes_previa_prelibertadores = 15; //C208a
+    int peso_equipos_fuertes_posterior_prelibertadores = 15; //C208b
+    int peso_equipos_fuertes_previa_libertadores = 60; //C208c
+    int peso_equipos_fuertes_posterior_libertadores = 55; //C208d
+    int peso_equipos_fuertes_previa_sudamericana = 20; //C208e
+    int peso_equipos_fuertes_posterior_sudamericana = 20; //C208f
 
-    int peso_equipos_zonas = 50; //R7
-    int peso_equipos_fuertes_primeras_fechas = 80; //R8
+    int peso_equipos_zonas = 50; //C205a, C205b, C205c
+    int peso_equipos_fuertes_primeras_ultimas_fechas = 80; //C203
 
-    int peso_localias_clasicos = 100; //R9
+    int peso_localias_clasicos = 100; //C204
 
-    int peso_enfrentamientos_consecutivos_fuertes = 70; //R10
+    int peso_enfrentamientos_consecutivos_fuertes = 70; //C201
 
-    int peso_vacaciones_equipos_fuertes = 30; //R11
+    int peso_vacaciones_equipos_fuertes = 30; //C207
 
-    int peso_partidos_santiago = 50; //R12
+    int peso_partidos_santiago = 50; //C207
 
-    int peso_balance_localias_rueda = 200; //R13
+    int peso_balance_localias_rueda = 200; //C202
 
     //generando vectores para solicitudes de no jugar como local
     vector<int> aux_equipos_solicitud_visitante;
@@ -368,42 +368,42 @@ void print_costo_restricciones_pdc(vector<vector<int>> rueda1, vector<vector<int
         aux_fechas_solicitud_visitante.push_back(solicituedes_visitante[i][1]);
     }
 
-    cout << "(R1) Solicitudes no jugar como local: " << solicitud_no_jugar_como_local(rueda1, rueda2, aux_equipos_solicitud_visitante, aux_fechas_solicitud_visitante)*peso_solicitudes_no_jugar_como_local << endl;
+    cout << "(C04) Solicitudes no jugar como local: " << solicitud_no_jugar_como_local(rueda1, rueda2, aux_equipos_solicitud_visitante, aux_fechas_solicitud_visitante)*peso_solicitudes_no_jugar_como_local << endl;
 
-    cout << "(R2) Primeras y ultimas fechas local: " << revision_primeras_ultimas_fechas_local(rueda1, rueda2)*peso_break_primeras_ultimas_fechas << endl;
+    cout << "(C12a) Primeras y ultimas fechas local: " << revision_primeras_ultimas_fechas_local(rueda1, rueda2)*peso_break_primeras_ultimas_fechas << endl;
 
-    cout << "(R3) Primeras y ultimas fechas visitante: " << revision_primeras_ultimas_fechas_visitante(rueda1, rueda2)*peso_break_primeras_ultimas_fechas << endl;
+    cout << "(C12b) Primeras y ultimas fechas visitante: " << revision_primeras_ultimas_fechas_visitante(rueda1, rueda2)*peso_break_primeras_ultimas_fechas << endl;
 
-    cout << "(R4) Local 3 partidos: " << local_3partidos(rueda1, rueda2)*peso_maximo_3partidos_local_visitante << endl;
+    cout << "(C13) Local 3 partidos: " << local_3partidos(rueda1, rueda2)*peso_maximo_3partidos_local_visitante << endl;
 
-    cout << "(R4) Visitante 3 partidos: " << visitante_3partidos(rueda1, rueda2)*peso_maximo_3partidos_local_visitante << endl;
+    cout << "(C14) Visitante 3 partidos: " << visitante_3partidos(rueda1, rueda2)*peso_maximo_3partidos_local_visitante << endl;
 
-    cout << "(R5) Distancia enfrentarse nuevamente: " << distancia_fecha_enfrentarse_nuevamente(rueda1, rueda2, 12)*peso_cant_fechas_rival_nuevamente/2 << endl;
+    cout << "(C19) Distancia enfrentarse nuevamente: " << distancia_fecha_enfrentarse_nuevamente(rueda1, rueda2, 10)*peso_cant_fechas_rival_nuevamente/2 << endl;
 
-    cout << "(R6.1) Equipos fuertes previa prelibertadores: " << equipo_fuerte_fecha_internacional(rueda1, rueda2, equipos_fuertes, equipos_prelibertadores, fechas_previas_prelibertadores)*peso_equipos_fuertes_previa_prelibertadores << endl;
+    cout << "(C208a) Equipos fuertes previa prelibertadores: " << equipo_fuerte_fecha_internacional(rueda1, rueda2, equipos_fuertes, equipos_prelibertadores, fechas_previas_prelibertadores)*peso_equipos_fuertes_previa_prelibertadores << endl;
 
-    cout << "(R6.2) Equipos fuertes posterior prelibertadores: " << equipo_fuerte_fecha_internacional(rueda1, rueda2, equipos_fuertes, equipos_prelibertadores, fechas_posteriores_prelibertadores)*peso_equipos_fuertes_posterior_prelibertadores << endl;
+    cout << "(C208b) Equipos fuertes posterior prelibertadores: " << equipo_fuerte_fecha_internacional(rueda1, rueda2, equipos_fuertes, equipos_prelibertadores, fechas_posteriores_prelibertadores)*peso_equipos_fuertes_posterior_prelibertadores << endl;
 
-    cout << "(R6.3) Equipos fuertes previa libertadores: " << equipo_fuerte_fecha_internacional(rueda1, rueda2, equipos_fuertes, equipos_libertadores, fechas_previas_libertadores)*peso_equipos_fuertes_previa_libertadores << endl;
+    cout << "(C208c) Equipos fuertes previa libertadores: " << equipo_fuerte_fecha_internacional(rueda1, rueda2, equipos_fuertes, equipos_libertadores, fechas_previas_libertadores)*peso_equipos_fuertes_previa_libertadores << endl;
 
-    cout << "(R6.4) Equipos fuertes posterior libertadores: " << equipo_fuerte_fecha_internacional(rueda1, rueda2, equipos_fuertes, equipos_libertadores, fechas_posteriores_libertadores)*peso_equipos_fuertes_posterior_libertadores << endl;
+    cout << "(C208d) Equipos fuertes posterior libertadores: " << equipo_fuerte_fecha_internacional(rueda1, rueda2, equipos_fuertes, equipos_libertadores, fechas_posteriores_libertadores)*peso_equipos_fuertes_posterior_libertadores << endl;
 
-    cout << "(R6.5) Equipos fuertes previa sudamericana: " << equipo_fuerte_fecha_internacional(rueda1, rueda2, equipos_fuertes, equipos_sudamericana, fechas_previas_sudamericana)*peso_equipos_fuertes_previa_sudamericana << endl;
+    cout << "(C208e) Equipos fuertes previa sudamericana: " << equipo_fuerte_fecha_internacional(rueda1, rueda2, equipos_fuertes, equipos_sudamericana, fechas_previas_sudamericana)*peso_equipos_fuertes_previa_sudamericana << endl;
 
-    cout << "(R6.6) Equipos fuertes posterior sudamericana: " << equipo_fuerte_fecha_internacional(rueda1, rueda2, equipos_fuertes, equipos_sudamericana, fechas_posteriores_sudamericana)*peso_equipos_fuertes_posterior_sudamericana << endl;
+    cout << "(C208f) Equipos fuertes posterior sudamericana: " << equipo_fuerte_fecha_internacional(rueda1, rueda2, equipos_fuertes, equipos_sudamericana, fechas_posteriores_sudamericana)*peso_equipos_fuertes_posterior_sudamericana << endl;
 
-    cout << "(R7) Equipos zonas: " << revision_equipos_zona(rueda1, rueda2, equipos_zona_norte, equipos_zona_centro, equipos_zona_sur)*peso_equipos_zonas << endl;
+    cout << "(C205a + C205b + C205c) Equipos zonas: " << revision_equipos_zona(rueda1, rueda2, equipos_zona_norte, equipos_zona_centro, equipos_zona_sur)*peso_equipos_zonas << endl;
 
     vector<int> fechas_evitar_fuertes = {1,2,3,28,29,30};
-    cout << "(R8) Equipos fuertes primeras 3 y ultimas 3 fechas: " << enfrentamientos_entre_equipos_fuertes(rueda1, rueda2, equipos_fuertes, fechas_evitar_fuertes)*peso_equipos_fuertes_primeras_fechas/2 << endl;
+    cout << "(C203) Equipos fuertes primeras 3 y ultimas 3 fechas: " << enfrentamientos_entre_equipos_fuertes(rueda1, rueda2, equipos_fuertes, fechas_evitar_fuertes)*peso_equipos_fuertes_primeras_ultimas_fechas/2 << endl;
 
-    cout << "(R9) Localias clasicos: " << clasicos_local_visitante(rueda1, rueda2, equipos_fuertes)*peso_localias_clasicos << endl;
+    cout << "(C204) Localias clasicos: " << clasicos_local_visitante(rueda1, rueda2, equipos_fuertes)*peso_localias_clasicos << endl;
 
-    cout << "(R10) Enfrentamientos consecutivos fuertes: " << fechas_consecutivas_equipos_fuertes(rueda1, rueda2, equipos_fuertes)*peso_enfrentamientos_consecutivos_fuertes << endl;
+    cout << "(C201) Enfrentamientos consecutivos fuertes: " << fechas_consecutivas_equipos_fuertes(rueda1, rueda2, equipos_fuertes)*peso_enfrentamientos_consecutivos_fuertes << endl;
 
-    cout << "(R11) Equipos zonas vacaciones: " << equipos_zonas_vacaciones(rueda1, equipos_zona_vacaciones, equipos_fuertes, fecha_limite_vacaciones)*peso_vacaciones_equipos_fuertes << endl;
+    cout << "(C207) Equipos zonas vacaciones: " << equipos_zonas_vacaciones(rueda1, equipos_zona_vacaciones, equipos_fuertes, fecha_limite_vacaciones)*peso_vacaciones_equipos_fuertes << endl;
 
-    cout << "(R12) Partidos Santiago: " << equipos_local_simultaneo(rueda1, rueda2, equipos_santiago,2,4)*peso_partidos_santiago << endl;
+    cout << "(C206) Partidos Santiago: " << equipos_local_simultaneo(rueda1, rueda2, equipos_santiago,2,4)*peso_partidos_santiago << endl;
 
-    cout << "(R13) Balance localias rueda: " << balance_localias_rueda(rueda1)*peso_balance_localias_rueda << endl;
+    cout << "(C202) Balance localias rueda: " << balance_localias_rueda(rueda1)*peso_balance_localias_rueda << endl;
 }
