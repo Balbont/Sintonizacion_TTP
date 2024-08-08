@@ -36,9 +36,62 @@ int main(int argc, char *argv[]){
     
     vector<vector<int>> solicituedes_visitante;
 
+    // ---------------------------------------------------- LECTURA PARAMETROS ------------------------------------------------------
+
+    // parametros SA
+
+    string nombre_archivo;
+    int semilla;
+    int cantidad_iteraciones;
+    int tempertura;
+    float tasa_enfriamiento;
+    int cambios_temperatura;    
+
+    //lectura de parametros
+
+    for (int i = 0; i <=6; i++){
+        if(i == 1){
+            nombre_archivo = argv[1];
+        }
+        else if(i == 2){
+            semilla = stoi(argv[2]);
+        }
+        else if(i == 3){
+            cantidad_iteraciones = stoi(argv[3]);
+        }
+        else if(i == 4){
+            tempertura = stoi(argv[4]);
+        }
+        else if(i == 5){
+            tasa_enfriamiento = stof(argv[5]);
+        }
+        else if(i == 6){
+            cambios_temperatura = stoi(argv[6]);
+        }
+    }
+
+    //forzando que tasa_enfriamiento sea decimal
+
+    while (tasa_enfriamiento > 1){
+        tasa_enfriamiento = tasa_enfriamiento/10;
+    }
+
+    //imprimiendo parametros
+
+    /*    
+    cout << "Parametros SA" << endl;
+    cout << "Nombre archivo: " << nombre_archivo << endl;   
+    cout << "Semilla: " << semilla << endl;
+    cout << "Cantidad de iteraciones: " << cantidad_iteraciones << endl;
+    cout << "Temperatura inicial: " << tempertura << endl;
+    cout << "Tasa de enfriamiento: " << tasa_enfriamiento << endl;
+    cout << "Cambios de temperatura: " << cambios_temperatura << endl;
+    */
+        
+
     // ----------------------------------------------------- LECTURA INSTANCIA ------------------------------------------------------
 
-    ifstream file("instanciaPDC.txt");
+    ifstream file(nombre_archivo);
 
     string line;
 
@@ -223,40 +276,11 @@ int main(int argc, char *argv[]){
 
     //print_calendarizacion(rueda1_inicial, rueda2_inicial);
 
-    // parametros SA
-    int tempertura; //1000
-    float tasa_enfriamiento; //0.8
-    int cambios_temperatura; //15
-    int cantidad_iteraciones;
-
-    //lectura de parametros
-
-    for (int i = 0; i <=4; i++){
-        if(i == 1){
-            cantidad_iteraciones = stoi(argv[1]);
-        }
-        else if(i == 2){
-            tempertura = stoi(argv[2]);
-        }
-        else if(i == 3){
-            tasa_enfriamiento = stof(argv[3]);
-        }
-        else if(i == 4){
-            cambios_temperatura = stoi(argv[4]);
-        }
-    }
-
-    //forzando que tasa_enfriamiento sea decimal
-
-    while (tasa_enfriamiento > 1){
-        tasa_enfriamiento = tasa_enfriamiento/10;
-    }
-
     //cout << cantidad_iteraciones << " " << tempertura << " " << tasa_enfriamiento << " " << cambios_temperatura << endl;
 
     vector<vector<vector<int>>> ruedas_SA = sa_pdc(rueda1_inicial, rueda2_inicial, fecha_limite_vacaciones, equipos_fuertes, equipos_libertadores, equipos_prelibertadores, 
     equipos_sudamericana, equipos_zona_norte, equipos_zona_centro, equipos_zona_sur, equipos_zonas_vacaciones, equipos_santiago, fechas_previas_prelibertadores, fechas_posteriores_prelibertadores, 
-    fechas_previas_libertadores, fechas_posteriores_libertadores, fechas_previas_sudamericana, fechas_posteriores_sudamericana, solicituedes_visitante, tempertura, cantidad_iteraciones, tasa_enfriamiento, cambios_temperatura);
+    fechas_previas_libertadores, fechas_posteriores_libertadores, fechas_previas_sudamericana, fechas_posteriores_sudamericana, solicituedes_visitante, tempertura, cantidad_iteraciones, tasa_enfriamiento, cambios_temperatura, semilla);
 
     //cout << "Fin SA" << endl;
 
@@ -273,15 +297,6 @@ int main(int argc, char *argv[]){
         cout << evaluacion_actual_SA << endl;
     }
     else{
-
-        //imprimiendo parametros
-        /*
-        cout << "Parametros SA" << endl;
-        cout << "Cantidad de iteraciones: " << cantidad_iteraciones << endl;
-        cout << "Temperatura inicial: " << tempertura << endl;
-        cout << "Tasa de enfriamiento: " << tasa_enfriamiento << endl;
-        cout << "Cambios de temperatura: " << cambios_temperatura << endl;
-        */
 
         print_calendarizacion(rueda1_SA, rueda2_SA);
         cout << "\nFixture PDC SA" << endl;

@@ -9,8 +9,6 @@
 using namespace std;
 
 int main(int argc, char *argv[]){ 
-   
-    // ---------------------------------------------------- lectura de instanica EPL ----------------------------------------------------
 
     int contador_fila = 0;
     int numero_solicitudes;
@@ -37,7 +35,87 @@ int main(int argc, char *argv[]){
     vector<vector<int>> solicituedes_visitante; // tuplas [equipo,fecha]
     vector<vector<int>> distancias;
 
-    ifstream file("instanciaPL1314.txt"); 
+    // ---------------------------------------------------- LECTURA PARAMETROS ------------------------------------------------------
+
+    // parametros TS
+
+    string nombre_archivo;
+    int semilla;
+    int iteraciones;
+    vector<int> largos_listas_equipos;
+    vector<int> largos_listas_fechas;
+    vector<vector<int>>  probabilidades_operadores = {{},{},{}};
+
+    //lectura de parametros
+
+    for (int i = 0; i <= 24; i++){
+
+        if (i == 1){
+            nombre_archivo = argv[i];
+        }
+        else if (i == 2){
+            semilla = stoi(argv[i]);
+        }
+        else if (i == 3){
+            iteraciones = stoi(argv[i]);
+        }
+        else if (i >= 4 && i <= 6){
+            largos_listas_equipos.push_back(stoi(argv[i]));
+        }
+        else if (i >= 7 && i <= 9){
+            largos_listas_fechas.push_back(stoi(argv[i]));
+        }
+        else if (i >= 10 && i <= 14){
+            probabilidades_operadores[0].push_back(stoi(argv[i]));
+        }
+        else if (i >= 15 && i <= 19){
+            probabilidades_operadores[1].push_back(stoi(argv[i]));
+        }
+        else if (i >= 20 && i <= 24){
+            probabilidades_operadores[2].push_back(stoi(argv[i]));
+        }
+    }
+
+    // normalizando probabilidades
+    for (int i = 0; i < probabilidades_operadores.size(); i++){
+        int suma = 0;
+        for (int j = 0; j < probabilidades_operadores[i].size(); j++){
+            suma += probabilidades_operadores[i][j];
+        }
+        for (int j = 0; j < probabilidades_operadores[i].size(); j++){
+            probabilidades_operadores[i][j] = int(probabilidades_operadores[i][j]*100/suma);
+        }
+    }
+
+    //imprimiendo parametros
+    /*
+    cout << "Nombre archivo: " << nombre_archivo << endl;
+
+    cout << "Semilla: " << semilla << endl;
+    
+    cout << "Iteraciones: " << iteraciones << endl;
+    cout << "Largos listas equipos: ";
+    for (int i = 0; i < largos_listas_equipos.size(); i++){
+        cout << largos_listas_equipos[i] << " ";
+    }
+    cout << endl;
+    cout << "Largos listas fechas: ";
+    for (int i = 0; i < largos_listas_fechas.size(); i++){
+        cout << largos_listas_fechas[i] << " ";
+    }
+    cout << endl;
+    cout << "Probabilidades operadores: " << endl;
+    for (int i = 0; i < probabilidades_operadores.size(); i++){
+        for (int j = 0; j < probabilidades_operadores[i].size(); j++){
+            cout << probabilidades_operadores[i][j] << " ";
+        }
+        cout << endl;
+    }
+    */
+
+    // ---------------------------------------------------- lectura de instanica EPL ----------------------------------------------------
+
+    ifstream file(nombre_archivo); 
   
     // String to store each line of the file. 
     string line; 
@@ -253,60 +331,12 @@ int main(int argc, char *argv[]){
         }
     }
 
-
-    // ------------------------------------------------- fin lectura de instanica EPL ---------------------------------------------------
-    
-    //parametros para la lista tabu
-    //vector<int> largos_listas_equipos = {8,4,2};
-    //vector<int> largos_listas_fechas = {12,6,2};
-    //vector<vector<int>> probabilidades_operadores = {{5,5,5,42,43},{20,20,20,20,20},{30,30,30,5,5}};
-    int iteraciones; // al parecer va a ser fijo
-
-    //lectura de parametros de entrada
-    // recibe largo_fase1_equipos largo_fase2_equipos largo_fase3_equipos largo_fase1_fechas largo_fase2_fechas largo_fase3_fechas
-    // p_o1_f1 p_o2_f1 p_o3_f1 p_o4_f1 p_o5_f1 p_o1_f2 p_o2_f2 p_o3_f2 p_o4_f2 p_o5_f2 p_o1_f3 p_o2_f3 p_o3_f3 p_o4_f3 p_o5_f3
-
-    vector<int> largos_listas_equipos;
-    vector<int> largos_listas_fechas;
-    vector<vector<int>> probabilidades_operadores = {{},{},{}};
-
-    for (int i = 0; i <= 22; i++){
-
-        if (i == 1){
-            iteraciones = stoi(argv[i]);
-        }
-        else if (i >= 2 && i <= 4){
-            largos_listas_equipos.push_back(stoi(argv[i]));
-        }
-        else if (i >= 5 && i <= 7){
-            largos_listas_fechas.push_back(stoi(argv[i]));
-        }
-        else if (i >= 8 && i <= 12){
-            probabilidades_operadores[0].push_back(stoi(argv[i]));
-        }
-        else if (i >= 13 && i <= 17){
-            probabilidades_operadores[1].push_back(stoi(argv[i]));
-        }
-        else if (i >= 18 && i <= 22){
-            probabilidades_operadores[2].push_back(stoi(argv[i]));
-        }
-    }
-
-    // normalizando probabilidades
-    for (int i = 0; i < probabilidades_operadores.size(); i++){
-        int suma = 0;
-        for (int j = 0; j < probabilidades_operadores[i].size(); j++){
-            suma += probabilidades_operadores[i][j];
-        }
-        for (int j = 0; j < probabilidades_operadores[i].size(); j++){
-            probabilidades_operadores[i][j] = int(probabilidades_operadores[i][j]*100/suma);
-        }
-    }    
+    // ------------------------------------------------- fin lectura de instanica EPL ---------------------------------------------------  
 
     vector<vector<int>> rueda1_inicial = creacion_fixture_inicial(20);
     vector<vector<int>> rueda2_inicial = generacion_rueda_mirrored(rueda1_inicial);
     
-    vector<vector<vector<int>>> ruedas_TS = tabu_search_epl(distancia_optima, fecha_boxing_day, fecha_new_year, rueda1_inicial, rueda2_inicial, equipos_fuertes, equipos_UCL, equipos_UEL, equipos_UECL, equipos_emparejados, fechas_previas_FA_Cup, fechas_posteriores_FA_Cup, fechas_previas_UCL, fechas_posteriores_UCL, fechas_previas_UEL, fechas_posteriores_UEL, fechas_previas_UECL, fechas_posteriores_UECL, fechas_bank_holidays, solicituedes_visitante, distancias, largos_listas_equipos, largos_listas_fechas, probabilidades_operadores, iteraciones);
+    vector<vector<vector<int>>> ruedas_TS = tabu_search_epl(distancia_optima, fecha_boxing_day, fecha_new_year, rueda1_inicial, rueda2_inicial, equipos_fuertes, equipos_UCL, equipos_UEL, equipos_UECL, equipos_emparejados, fechas_previas_FA_Cup, fechas_posteriores_FA_Cup, fechas_previas_UCL, fechas_posteriores_UCL, fechas_previas_UEL, fechas_posteriores_UEL, fechas_previas_UECL, fechas_posteriores_UECL, fechas_bank_holidays, solicituedes_visitante, distancias, largos_listas_equipos, largos_listas_fechas, probabilidades_operadores, iteraciones,semilla);
 
     vector<vector<int>> rueda1_TS = ruedas_TS[0];
     vector<vector<int>> rueda2_TS = ruedas_TS[1];

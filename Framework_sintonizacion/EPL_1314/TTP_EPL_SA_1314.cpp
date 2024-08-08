@@ -9,8 +9,6 @@
 using namespace std;
 
 int main(int argc, char *argv[]){
-   
-    // ---------------------------------------------------- lectura de instanica EPL ----------------------------------------------------
 
     int contador_fila = 0;
     int numero_solicitudes;
@@ -37,7 +35,58 @@ int main(int argc, char *argv[]){
     vector<vector<int>> solicituedes_visitante; // tuplas [equipo,fecha]
     vector<vector<int>> distancias;
 
-    ifstream file("instanciaPL1314.txt"); 
+    // ---------------------------------------------------- LECTURA PARAMETROS ------------------------------------------------------
+
+    // parametros SA
+    string nombre_archivo;
+    int semilla;
+    int tempertura; //1000
+    float tasa_enfriamiento; //0.8
+    int cambios_temperatura; //15
+    int cantidad_iteraciones;
+
+    for (int i = 0; i <=6; i++){
+
+        if(i == 1){
+            nombre_archivo = argv[i];
+        }
+        else if(i == 2){
+            semilla = stoi(argv[i]);
+        }
+        else if(i == 3){
+            cantidad_iteraciones = stoi(argv[i]);
+        }
+        else if(i == 4){
+            tempertura = stoi(argv[i]);
+        }
+        else if(i == 5){
+            tasa_enfriamiento = stof(argv[i]);
+        }
+        else if(i == 6){
+            cambios_temperatura = stoi(argv[i]);
+        }
+    }
+
+    //forzando que tasa_enfriamiento sea decimal
+
+    while (tasa_enfriamiento > 1){
+        tasa_enfriamiento = tasa_enfriamiento/10;
+    }
+
+    //imprime parametros
+    /*
+    cout << "Parametros SA" << endl;
+    cout << "Nombre archivo: " << nombre_archivo << endl;
+    cout << "Semilla: " << semilla << endl;
+    cout << "Temperatura inicial: " << tempertura << endl;
+    cout << "Tasa de enfriamiento: " << tasa_enfriamiento << endl;
+    cout << "Cambios de temperatura: " << cambios_temperatura << endl;
+    cout << "Cantidad de iteraciones: " << cantidad_iteraciones << endl;
+    */
+
+    // ---------------------------------------------------- lectura de instanica EPL ----------------------------------------------------
+
+    ifstream file(nombre_archivo); 
   
     // String to store each line of the file. 
     string line; 
@@ -256,37 +305,10 @@ int main(int argc, char *argv[]){
 
     // ------------------------------------------------- fin lectura de instanica EPL ---------------------------------------------------
 
-    // parametros SA
-    int tempertura; //1000
-    float tasa_enfriamiento; //0.8
-    int cambios_temperatura; //15
-    int cantidad_iteraciones;
-
-    for (int i = 0; i <=4; i++){
-        if(i == 1){
-            cantidad_iteraciones = stoi(argv[1]);
-        }
-        else if(i == 2){
-            tempertura = stoi(argv[2]);
-        }
-        else if(i == 3){
-            tasa_enfriamiento = stof(argv[3]);
-        }
-        else if(i == 4){
-            cambios_temperatura = stoi(argv[4]);
-        }
-    }
-
-    //forzando que tasa_enfriamiento sea decimal
-
-    while (tasa_enfriamiento > 1){
-        tasa_enfriamiento = tasa_enfriamiento/10;
-    }
-
     vector<vector<int>> rueda1_inicial = creacion_fixture_inicial(20);
     vector<vector<int>> rueda2_inicial = generacion_rueda_mirrored(rueda1_inicial);
     
-    vector<vector<vector<int>>> ruedas_SA = sa_epl(distancia_optima, fecha_boxing_day, fecha_new_year, rueda1_inicial, rueda2_inicial, equipos_fuertes, equipos_UCL, equipos_UEL, equipos_UECL, equipos_emparejados, fechas_previas_FA_Cup, fechas_posteriores_FA_Cup, fechas_previas_UCL, fechas_posteriores_UCL, fechas_previas_UEL, fechas_posteriores_UEL, fechas_previas_UECL, fechas_posteriores_UECL, fechas_bank_holidays, solicituedes_visitante, distancias, tempertura, cantidad_iteraciones, tasa_enfriamiento, cambios_temperatura);
+    vector<vector<vector<int>>> ruedas_SA = sa_epl(distancia_optima, fecha_boxing_day, fecha_new_year, rueda1_inicial, rueda2_inicial, equipos_fuertes, equipos_UCL, equipos_UEL, equipos_UECL, equipos_emparejados, fechas_previas_FA_Cup, fechas_posteriores_FA_Cup, fechas_previas_UCL, fechas_posteriores_UCL, fechas_previas_UEL, fechas_posteriores_UEL, fechas_previas_UECL, fechas_posteriores_UECL, fechas_bank_holidays, solicituedes_visitante, distancias, tempertura, cantidad_iteraciones, tasa_enfriamiento, cambios_temperatura, semilla);
 
     vector<vector<int>> rueda1_SA = ruedas_SA[0];
     vector<vector<int>> rueda2_SA = ruedas_SA[1];
@@ -300,15 +322,6 @@ int main(int argc, char *argv[]){
         cout << evaluacion_actual_SA << endl;
     }
     else{
-
-        //imprime parametros
-        /*
-        cout << "Parametros SA" << endl;
-        cout << "Temperatura inicial: " << tempertura << endl;
-        cout << "Tasa de enfriamiento: " << tasa_enfriamiento << endl;
-        cout << "Cambios de temperatura: " << cambios_temperatura << endl;
-        cout << "Cantidad de iteraciones: " << cantidad_iteraciones << endl;
-        */
 
         print_calendarizacion(rueda1_SA, rueda2_SA);
         cout << "\nFixture SA" << endl;

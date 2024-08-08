@@ -11,7 +11,7 @@ using namespace std;
 vector<vector<vector<int>>> tabu_search_epl(int distancia_optima, int fecha_boxing_day, int fecha_new_year, vector<vector<int>> rueda1, vector<vector<int>> rueda2, vector<int> equipos_fuertes, vector<int> equipos_UCL, vector<int> equipos_UEL,
     vector<int> equipos_UECL, vector<int> equipos_emparejados, vector <int >fechas_previas_FA_Cup, vector<int> fechas_posteriores_FA_Cup, vector<int> fechas_previas_UCL,
     vector<int> fechas_posteriores_UCL, vector<int> fechas_previas_UEL, vector<int> fechas_posteriores_UEL, vector<int> fechas_previas_UECL, vector<int> fechas_posteriores_UECL, vector<int> fechas_bank_holidays, 
-    vector<vector<int>> solicituedes_visitante, vector<vector<int>> distancias, vector<int> largo_lista_equipos, vector<int> largo_lista_fechas, vector<vector<int>> probabilidades_operadores, int cantidad_iteraciones_TS){
+    vector<vector<int>> solicituedes_visitante, vector<vector<int>> distancias, vector<int> largo_lista_equipos, vector<int> largo_lista_fechas, vector<vector<int>> probabilidades_operadores, int cantidad_iteraciones_TS, int seed){
 
     int mejoras_totales;
 
@@ -31,7 +31,8 @@ vector<vector<vector<int>>> tabu_search_epl(int distancia_optima, int fecha_boxi
     int cantidad_equipos = rueda1.size();
     int cantidad_fechas = rueda1[0].size();
 
-    random_device rd;
+    //random_device rd;
+    mt19937 gen(seed);
     uniform_int_distribution<int> distrib_operador(1, 5);
     uniform_int_distribution<int> distrib_equipo(1, 20);
     uniform_int_distribution<int> distrib_fecha(1, 19);
@@ -67,8 +68,7 @@ vector<vector<vector<int>>> tabu_search_epl(int distancia_optima, int fecha_boxi
 
     for(int iter=0; iter < cantidad_iteraciones_TS; iter++){
 
-
-        probabilidad_operador = distrib_probabilidad(rd);
+        probabilidad_operador = distrib_probabilidad(gen);
 
         int mejor_evaluacion_iteracion = 1000000;
 
@@ -580,7 +580,7 @@ vector<vector<vector<int>>> hill_climbing_epl_mejor_mejora(int distancia_optima,
 vector<vector<vector<int>>> sa_epl(int distancia_optima, int fecha_boxing_day, int fecha_new_year, vector<vector<int>> rueda1, vector<vector<int>> rueda2, vector<int> equipos_fuertes, vector<int> equipos_UCL, vector<int> equipos_UEL,
     vector<int> equipos_UECL, vector<int> equipos_emparejados, vector <int >fechas_previas_FA_Cup, vector<int> fechas_posteriores_FA_Cup, vector<int> fechas_previas_UCL,
     vector<int> fechas_posteriores_UCL, vector<int> fechas_previas_UEL, vector<int> fechas_posteriores_UEL, vector<int> fechas_previas_UECL, vector<int> fechas_posteriores_UECL, vector<int> fechas_bank_holidays, 
-    vector<vector<int>> solicituedes_visitante, vector<vector<int>> distancias, int temperatura_inicial, int numero_iteraciones, float tasa_cambio_temperatura, int numero_cambios_temperatura){
+    vector<vector<int>> solicituedes_visitante, vector<vector<int>> distancias, int temperatura_inicial, int numero_iteraciones, float tasa_cambio_temperatura, int numero_cambios_temperatura, int seed){
 
     int mejor_evaluacion_global = funcion_evaluacion_epl(distancia_optima, fecha_boxing_day, fecha_new_year, rueda1, rueda2, equipos_fuertes, equipos_UCL, equipos_UEL, equipos_UECL, equipos_emparejados, fechas_previas_FA_Cup, 
                     fechas_posteriores_FA_Cup, fechas_previas_UCL, fechas_posteriores_UCL, fechas_previas_UEL, fechas_posteriores_UEL, fechas_previas_UECL, fechas_posteriores_UECL, 
@@ -609,7 +609,8 @@ vector<vector<vector<int>>> sa_epl(int distancia_optima, int fecha_boxing_day, i
     rueda1_actual = mejor_rueda1_global;
     rueda2_actual = mejor_rueda2_global;
 
-    random_device rd;
+    //random_device rd;
+    mt19937 gen(seed);
     uniform_int_distribution<int> distrib_operador(1, 5);
     uniform_int_distribution<int> distrib_equipo(1, 20);
     uniform_int_distribution<int> distrib_fecha(1, 19);
@@ -620,7 +621,7 @@ vector<vector<vector<int>>> sa_epl(int distancia_optima, int fecha_boxing_day, i
     int contador_iteraciones_cambio_temperatura = 0;
 
     for (int iteracion=0; iteracion < cantidad_iteraciones; iteracion++){
-        int operador = distrib_operador(rd);
+        int operador = distrib_operador(gen);
 
         int mejor_evaluacion_iteracion = 999999;
 
@@ -628,11 +629,11 @@ vector<vector<vector<int>>> sa_epl(int distancia_optima, int fecha_boxing_day, i
             
             for (int iter_sh = 0; iter_sh < 95; iter_sh++){ // vecindario completo 190
 
-                int equipo_1 = distrib_equipo(rd);
-                int equipo_2 = distrib_equipo(rd);
+                int equipo_1 = distrib_equipo(gen);
+                int equipo_2 = distrib_equipo(gen);
 
                 while (equipo_1 == equipo_2){
-                    equipo_2 = distrib_equipo(rd);
+                    equipo_2 = distrib_equipo(gen);
                 }
 
                 rueda1_aux = SwapHomes(rueda1_actual, equipo_1, equipo_2);
@@ -654,11 +655,11 @@ vector<vector<vector<int>>> sa_epl(int distancia_optima, int fecha_boxing_day, i
             
                 for (int iter_sr = 0; iter_sr < 190; iter_sr++){ // vecindario completo 190
 
-                    int equipo_1 = distrib_equipo(rd);
-                    int equipo_2 = distrib_equipo(rd);
+                    int equipo_1 = distrib_equipo(gen);
+                    int equipo_2 = distrib_equipo(gen);
 
                     while (equipo_1 == equipo_2){
-                        equipo_2 = distrib_equipo(rd);
+                        equipo_2 = distrib_equipo(gen);
                     }
 
                     rueda1_aux = SwapTeams(rueda1_actual, equipo_1, equipo_2);
@@ -680,9 +681,9 @@ vector<vector<vector<int>>> sa_epl(int distancia_optima, int fecha_boxing_day, i
             
             for(int k = 0; k<171; k++){ // vecindario completo 342
 
-                int fecha_1 = distrib_fecha(rd);
-                int fecha_2 = distrib_fecha(rd);
-                int rueda_seleccionada = distrib_rueda(rd);
+                int fecha_1 = distrib_fecha(gen);
+                int fecha_2 = distrib_fecha(gen);
+                int rueda_seleccionada = distrib_rueda(gen);
 
                 if(rueda_seleccionada==1){
                     rueda1_aux = SwapRounds(rueda1_actual, fecha_1, fecha_2);
@@ -708,10 +709,10 @@ vector<vector<vector<int>>> sa_epl(int distancia_optima, int fecha_boxing_day, i
 
             for(int iter_sm = 1; iter_sm <= 3860; iter_sm++){ // vecindario completo 7720
 
-                int equipo_1 = distrib_equipo(rd);
-                int equipo_2 = distrib_equipo(rd);
-                int fecha_seleccionada = distrib_fecha(rd);
-                int rueda_elegida = distrib_rueda(rd);
+                int equipo_1 = distrib_equipo(gen);
+                int equipo_2 = distrib_equipo(gen);
+                int fecha_seleccionada = distrib_fecha(gen);
+                int rueda_elegida = distrib_rueda(gen);
 
                 //cout << "SwapMatches equipo1:" << i << " equipo 2 " << j << " fecha: " << k << " rueda " << rueda_elegida << endl;
 
@@ -747,10 +748,10 @@ vector<vector<vector<int>>> sa_epl(int distancia_optima, int fecha_boxing_day, i
 
             for(int iter_smr = 1; iter_smr <= 3420; iter_smr++){ //vecindario completo 6840
 
-                int equipo_1 = distrib_equipo(rd);
-                int fecha_1 = distrib_fecha(rd);
-                int fecha_2 = distrib_fecha(rd);
-                int rueda_elegida = distrib_rueda(rd);
+                int equipo_1 = distrib_equipo(gen);
+                int fecha_1 = distrib_fecha(gen);
+                int fecha_2 = distrib_fecha(gen);
+                int rueda_elegida = distrib_rueda(gen);
         
                 if (rueda_elegida == 1){
                     rueda1_aux = SwapMatchRound(rueda1_actual, equipo_1, fecha_1, fecha_2);
@@ -810,7 +811,7 @@ vector<vector<vector<int>>> sa_epl(int distancia_optima, int fecha_boxing_day, i
             //cout << "Mejor evaluacion actual: " << mejor_evaluacion_actual << " Mejor evaluacion iteracion: " << mejor_evaluacion_iteracion << " Temperatura: " << temperatura << endl;
 
             uniform_real_distribution<float> distrib_probabilidad(0, 1);
-            float probabilidad_aleatoria = distrib_probabilidad(rd);
+            float probabilidad_aleatoria = distrib_probabilidad(gen);
 
             //cout << "Probabilidad de aceptacion: " << probabilidad_aceptacion << " Probabilidad aleatoria: " << probabilidad_aleatoria << endl;
 
@@ -851,7 +852,7 @@ vector<vector<vector<int>>> sa_epl(int distancia_optima, int fecha_boxing_day, i
 vector<vector<vector<int>>> tabu_search_pdc(vector<vector<int>> rueda1, vector<vector<int>> rueda2, int fecha_limite_vacaciones, vector<int> equipos_fuertes, vector<int> equipos_libertadores, vector<int> equipos_prelibertadores, 
     vector<int> equipos_sudamericana, vector<int> equipos_zona_norte, vector<int> equipos_zona_centro, vector<int> equipos_zona_sur, vector<int> equipos_zona_vacaciones, vector<int> equipos_santiago,
     vector<int> fechas_previas_prelibertadores, vector<int> fechas_posteriores_prelibertadores, vector<int> fechas_previas_libertadores, vector<int> fechas_posteriores_libertadores, vector<int> fechas_previas_sudamericana,
-    vector<int> fechas_posteriores_sudamericana, vector<vector<int>> solicituedes_visitante, vector<int> largo_listas_equipos, vector<int> largo_listas_fechas, vector<vector<int>> probabilidades_operadores_fases, int numero_iteraciones){
+    vector<int> fechas_posteriores_sudamericana, vector<vector<int>> solicituedes_visitante, vector<int> largo_listas_equipos, vector<int> largo_listas_fechas, vector<vector<int>> probabilidades_operadores_fases, int numero_iteraciones, int seed){
 
     int mejoras_totales;
 
@@ -871,11 +872,12 @@ vector<vector<vector<int>>> tabu_search_pdc(vector<vector<int>> rueda1, vector<v
     int cantidad_equipos = rueda1.size();
     int cantidad_fechas = rueda1[0].size();
 
-    random_device rd;
-    uniform_int_distribution<int> distrib_operador(1, 5);
-    uniform_int_distribution<int> distrib_equipo(1, cantidad_equipos);
-    uniform_int_distribution<int> distrib_fecha(1, cantidad_fechas);
-    uniform_int_distribution<int> distrib_rueda(1, 2);
+    //random_device rd;
+    mt19937 gen(seed);
+    //uniform_int_distribution<int> distrib_operador(1, 5);
+    //uniform_int_distribution<int> distrib_equipo(1, cantidad_equipos);
+    //uniform_int_distribution<int> distrib_fecha(1, cantidad_fechas);
+    //uniform_int_distribution<int> distrib_rueda(1, 2);
 
     uniform_int_distribution<int> distrib_probabilidad(1, 100);
     int probabilidad_operador;
@@ -908,8 +910,7 @@ vector<vector<vector<int>>> tabu_search_pdc(vector<vector<int>> rueda1, vector<v
 
     for(int iter=0; iter < cantidad_iteraciones_TS; iter++){
 
-
-        probabilidad_operador = distrib_probabilidad(rd);
+        probabilidad_operador = distrib_probabilidad(gen);
 
         int mejor_evaluacion_iteracion = 1000000;
 
@@ -1242,7 +1243,7 @@ vector<vector<vector<int>>> tabu_search_pdc(vector<vector<int>> rueda1, vector<v
 vector<vector<vector<int>>> sa_pdc(vector<vector<int>> rueda1, vector<vector<int>> rueda2, int fecha_limite_vacaciones, vector<int> equipos_fuertes, vector<int> equipos_libertadores, vector<int> equipos_prelibertadores, 
     vector<int> equipos_sudamericana, vector<int> equipos_zona_norte, vector<int> equipos_zona_centro, vector<int> equipos_zona_sur, vector<int> equipos_zona_vacaciones, vector<int> equipos_santiago,
     vector<int> fechas_previas_prelibertadores, vector<int> fechas_posteriores_prelibertadores, vector<int> fechas_previas_libertadores, vector<int> fechas_posteriores_libertadores, vector<int> fechas_previas_sudamericana,
-    vector<int> fechas_posteriores_sudamericana, vector<vector<int>> solicituedes_visitante, int temperatura_inicial, int numero_iteraciones, float tasa_cambio_temperatura, int numero_cambios_temperatura){
+    vector<int> fechas_posteriores_sudamericana, vector<vector<int>> solicituedes_visitante, int temperatura_inicial, int numero_iteraciones, float tasa_cambio_temperatura, int numero_cambios_temperatura, int seed){
 
         int mejor_evaluacion_global = funcion_evaluacion_pdc(rueda1, rueda2, fecha_limite_vacaciones, equipos_fuertes, equipos_libertadores, equipos_prelibertadores, equipos_sudamericana, equipos_zona_norte, equipos_zona_centro, equipos_zona_sur, 
                             equipos_zona_vacaciones, equipos_santiago, fechas_previas_prelibertadores, fechas_posteriores_prelibertadores, fechas_previas_libertadores, fechas_posteriores_libertadores, fechas_previas_sudamericana,
@@ -1271,7 +1272,8 @@ vector<vector<vector<int>>> sa_pdc(vector<vector<int>> rueda1, vector<vector<int
         rueda1_actual = mejor_rueda1_global;
         rueda2_actual = mejor_rueda2_global;
 
-        random_device rd;
+        //random_device rd;
+        mt19937 gen(seed);
         uniform_int_distribution<int> distrib_operador(1, 5);
         uniform_int_distribution<int> distrib_equipo(1, 16);
         uniform_int_distribution<int> distrib_fecha(1, 15);
@@ -1282,7 +1284,7 @@ vector<vector<vector<int>>> sa_pdc(vector<vector<int>> rueda1, vector<vector<int
         int contador_iteraciones_cambio_temperatura = 0;
 
         for (int iteracion=0; iteracion < cantidad_iteraciones; iteracion++){
-            int operador = distrib_operador(rd);
+            int operador = distrib_operador(gen);
 
             int mejor_evaluacion_iteracion = 999999;
 
@@ -1290,11 +1292,11 @@ vector<vector<vector<int>>> sa_pdc(vector<vector<int>> rueda1, vector<vector<int
                 
                 for (int iter_sh = 0; iter_sh < 60; iter_sh++){ //vecindario completo es 120
 
-                    int equipo_1 = distrib_equipo(rd);
-                    int equipo_2 = distrib_equipo(rd);
+                    int equipo_1 = distrib_equipo(gen);
+                    int equipo_2 = distrib_equipo(gen);
 
                     while (equipo_1 == equipo_2){
-                        equipo_2 = distrib_equipo(rd);
+                        equipo_2 = distrib_equipo(gen);
                     }
 
                     rueda1_aux = SwapHomes(rueda1_actual, equipo_1, equipo_2);
@@ -1316,11 +1318,11 @@ vector<vector<vector<int>>> sa_pdc(vector<vector<int>> rueda1, vector<vector<int
                 
                     for (int iter_sr = 0; iter_sr < 60; iter_sr++){ //vecindario completo es 120
 
-                        int equipo_1 = distrib_equipo(rd);
-                        int equipo_2 = distrib_equipo(rd);
+                        int equipo_1 = distrib_equipo(gen);
+                        int equipo_2 = distrib_equipo(gen);
 
                         while (equipo_1 == equipo_2){
-                            equipo_2 = distrib_equipo(rd);
+                            equipo_2 = distrib_equipo(gen);
                         }
 
                         rueda1_aux = SwapTeams(rueda1_actual, equipo_1, equipo_2);
@@ -1343,9 +1345,9 @@ vector<vector<vector<int>>> sa_pdc(vector<vector<int>> rueda1, vector<vector<int
                 
                 for(int k = 0; k<105; k++){ //vecindario completo es 210
 
-                    int fecha_1 = distrib_fecha(rd);
-                    int fecha_2 = distrib_fecha(rd);
-                    int rueda_seleccionada = distrib_rueda(rd);
+                    int fecha_1 = distrib_fecha(gen);
+                    int fecha_2 = distrib_fecha(gen);
+                    int rueda_seleccionada = distrib_rueda(gen);
 
                     if(rueda_seleccionada==1){
                         rueda1_aux = SwapRounds(rueda1_actual, fecha_1, fecha_2);
@@ -1372,10 +1374,10 @@ vector<vector<vector<int>>> sa_pdc(vector<vector<int>> rueda1, vector<vector<int
 
                 for(int iter_sm = 1; iter_sm <= 1800; iter_sm++){ // vecindario completo es 3600
 
-                    int equipo_1 = distrib_equipo(rd);
-                    int equipo_2 = distrib_equipo(rd);
-                    int fecha_seleccionada = distrib_fecha(rd);
-                    int rueda_elegida = distrib_rueda(rd);
+                    int equipo_1 = distrib_equipo(gen);
+                    int equipo_2 = distrib_equipo(gen);
+                    int fecha_seleccionada = distrib_fecha(gen);
+                    int rueda_elegida = distrib_rueda(gen);
 
                     //cout << "SwapMatches equipo1:" << i << " equipo 2 " << j << " fecha: " << k << " rueda " << rueda_elegida << endl;
 
@@ -1421,10 +1423,10 @@ vector<vector<vector<int>>> sa_pdc(vector<vector<int>> rueda1, vector<vector<int
 
                 for(int iter_smr = 1; iter_smr <= 1680; iter_smr++){ // vecindario completo es 3360
 
-                    int equipo_1 = distrib_equipo(rd);
-                    int fecha_1 = distrib_fecha(rd);
-                    int fecha_2 = distrib_fecha(rd);
-                    int rueda_elegida = distrib_rueda(rd);
+                    int equipo_1 = distrib_equipo(gen);
+                    int fecha_1 = distrib_fecha(gen);
+                    int fecha_2 = distrib_fecha(gen);
+                    int rueda_elegida = distrib_rueda(gen);
             
                     if (rueda_elegida == 1){
                         rueda1_aux = SwapMatchRound(rueda1_actual, equipo_1, fecha_1, fecha_2);
@@ -1491,7 +1493,7 @@ vector<vector<vector<int>>> sa_pdc(vector<vector<int>> rueda1, vector<vector<int
                 //cout << "Mejor evaluacion actual: " << mejor_evaluacion_actual << " Mejor evaluacion iteracion: " << mejor_evaluacion_iteracion << " Temperatura: " << temperatura << endl;
 
                 uniform_real_distribution<float> distrib_probabilidad(0, 1);
-                float probabilidad_aleatoria = distrib_probabilidad(rd);
+                float probabilidad_aleatoria = distrib_probabilidad(gen);
 
                 //cout << "Probabilidad de aceptacion: " << probabilidad_aceptacion << " Probabilidad aleatoria: " << probabilidad_aleatoria << endl;
 
@@ -1526,4 +1528,3 @@ vector<vector<vector<int>>> sa_pdc(vector<vector<int>> rueda1, vector<vector<int
 
         return ruedas;
 }
-
