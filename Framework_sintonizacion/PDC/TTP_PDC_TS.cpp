@@ -36,9 +36,88 @@ int main(int argc, char *argv[]){
     
     vector<vector<int>> solicituedes_visitante;
 
+    // ---------------------------------------------------- LECTURA PARAMETROS ------------------------------------------------------
+
+    // parametros TS
+
+    string nombre_archivo;
+    int semilla;
+    int iteraciones;
+    vector<int> largos_listas_equipos;
+    vector<int> largos_listas_fechas;
+    vector<vector<int>>  probabilidades_operadores = {{},{},{}};
+
+    //lectura de parametros
+
+    for (int i = 0; i <= 24; i++){
+
+        if (i == 1){
+            nombre_archivo = argv[i];
+        }
+        else if (i == 2){
+            semilla = stoi(argv[i]);
+        }
+        else if (i == 3){
+            iteraciones = stoi(argv[i]);
+        }
+        else if (i >= 4 && i <= 6){
+            largos_listas_equipos.push_back(stoi(argv[i]));
+        }
+        else if (i >= 7 && i <= 9){
+            largos_listas_fechas.push_back(stoi(argv[i]));
+        }
+        else if (i >= 10 && i <= 14){
+            probabilidades_operadores[0].push_back(stoi(argv[i]));
+        }
+        else if (i >= 15 && i <= 19){
+            probabilidades_operadores[1].push_back(stoi(argv[i]));
+        }
+        else if (i >= 20 && i <= 24){
+            probabilidades_operadores[2].push_back(stoi(argv[i]));
+        }
+    }
+
+    // normalizando probabilidades
+    for (int i = 0; i < probabilidades_operadores.size(); i++){
+        int suma = 0;
+        for (int j = 0; j < probabilidades_operadores[i].size(); j++){
+            suma += probabilidades_operadores[i][j];
+        }
+        for (int j = 0; j < probabilidades_operadores[i].size(); j++){
+            probabilidades_operadores[i][j] = int(probabilidades_operadores[i][j]*100/suma);
+        }
+    }
+
+    //imprimiendo parametros
+    /*
+    cout << "Nombre archivo: " << nombre_archivo << endl;
+
+    cout << "Semilla: " << semilla << endl;
+    
+    cout << "Iteraciones: " << iteraciones << endl;
+    cout << "Largos listas equipos: ";
+    for (int i = 0; i < largos_listas_equipos.size(); i++){
+        cout << largos_listas_equipos[i] << " ";
+    }
+    cout << endl;
+    cout << "Largos listas fechas: ";
+    for (int i = 0; i < largos_listas_fechas.size(); i++){
+        cout << largos_listas_fechas[i] << " ";
+    }
+    cout << endl;
+    cout << "Probabilidades operadores: " << endl;
+    for (int i = 0; i < probabilidades_operadores.size(); i++){
+        for (int j = 0; j < probabilidades_operadores[i].size(); j++){
+            cout << probabilidades_operadores[i][j] << " ";
+        }
+        cout << endl;
+    }
+    */
+    
+
     // ----------------------------------------------------- LECTURA INSTANCIA ------------------------------------------------------
 
-    ifstream file("instanciaPDC.txt");
+    ifstream file(nombre_archivo);
 
     string line;
 
@@ -223,71 +302,9 @@ int main(int argc, char *argv[]){
 
     //print_calendarizacion(rueda1_inicial, rueda2_inicial);
 
-    int iteraciones;
-    vector<int> largos_listas_equipos;
-    vector<int> largos_listas_fechas;
-    vector<vector<int>>  probabilidades_operadores = {{},{},{}};
-
-    //lectura de parametros
-
-    for (int i = 0; i <= 22; i++){
-
-        if (i == 1){
-            iteraciones = stoi(argv[i]);
-        }
-        else if (i >= 2 && i <= 4){
-            largos_listas_equipos.push_back(stoi(argv[i]));
-        }
-        else if (i >= 5 && i <= 7){
-            largos_listas_fechas.push_back(stoi(argv[i]));
-        }
-        else if (i >= 8 && i <= 12){
-            probabilidades_operadores[0].push_back(stoi(argv[i]));
-        }
-        else if (i >= 13 && i <= 17){
-            probabilidades_operadores[1].push_back(stoi(argv[i]));
-        }
-        else if (i >= 18 && i <= 22){
-            probabilidades_operadores[2].push_back(stoi(argv[i]));
-        }
-    }
-
-    // normalizando probabilidades
-    for (int i = 0; i < probabilidades_operadores.size(); i++){
-        int suma = 0;
-        for (int j = 0; j < probabilidades_operadores[i].size(); j++){
-            suma += probabilidades_operadores[i][j];
-        }
-        for (int j = 0; j < probabilidades_operadores[i].size(); j++){
-            probabilidades_operadores[i][j] = int(probabilidades_operadores[i][j]*100/suma);
-        }
-    }
-
-    //imprimiendo parametros leidos
-    /*
-    cout << "Iteraciones: " << iteraciones << endl;
-    cout << "Largos listas equipos: ";
-    for (int i = 0; i < largos_listas_equipos.size(); i++){
-        cout << largos_listas_equipos[i] << " ";
-    }
-    cout << endl;
-    cout << "Largos listas fechas: ";
-    for (int i = 0; i < largos_listas_fechas.size(); i++){
-        cout << largos_listas_fechas[i] << " ";
-    }
-    cout << endl;
-    cout << "Probabilidades operadores: " << endl;
-    for (int i = 0; i < probabilidades_operadores.size(); i++){
-        for (int j = 0; j < probabilidades_operadores[i].size(); j++){
-            cout << probabilidades_operadores[i][j] << " ";
-        }
-        cout << endl;
-    }
-    */
-
     vector<vector<vector<int>>> ruedas_TS = tabu_search_pdc(rueda1_inicial, rueda2_inicial, fecha_limite_vacaciones, equipos_fuertes, equipos_libertadores, equipos_prelibertadores, 
     equipos_sudamericana, equipos_zona_norte, equipos_zona_centro, equipos_zona_sur, equipos_zonas_vacaciones, equipos_santiago, fechas_previas_prelibertadores, fechas_posteriores_prelibertadores, 
-    fechas_previas_libertadores, fechas_posteriores_libertadores, fechas_previas_sudamericana, fechas_posteriores_sudamericana, solicituedes_visitante, largos_listas_equipos, largos_listas_fechas, probabilidades_operadores, iteraciones);
+    fechas_previas_libertadores, fechas_posteriores_libertadores, fechas_previas_sudamericana, fechas_posteriores_sudamericana, solicituedes_visitante, largos_listas_equipos, largos_listas_fechas, probabilidades_operadores, iteraciones, semilla);
 
     vector<vector<int>> rueda1_TS = ruedas_TS[0];
     vector<vector<int>> rueda2_TS = ruedas_TS[1];
