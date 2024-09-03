@@ -336,7 +336,9 @@ int main(int argc, char *argv[]){
     vector<vector<int>> rueda1_inicial = creacion_fixture_inicial(20);
     vector<vector<int>> rueda2_inicial = generacion_rueda_mirrored(rueda1_inicial);
     
-    vector<vector<vector<int>>> ruedas_TS = tabu_search_epl(distancia_optima, fecha_boxing_day, fecha_new_year, rueda1_inicial, rueda2_inicial, equipos_fuertes, equipos_UCL, equipos_UEL, equipos_UECL, equipos_emparejados, fechas_previas_FA_Cup, fechas_posteriores_FA_Cup, fechas_previas_UCL, fechas_posteriores_UCL, fechas_previas_UEL, fechas_posteriores_UEL, fechas_previas_UECL, fechas_posteriores_UECL, fechas_bank_holidays, solicituedes_visitante, distancias, largos_listas_equipos, largos_listas_fechas, probabilidades_operadores, iteraciones,semilla);
+
+    //tabu_search_epl_reducido funciona con vecindarios mas pequeños
+    vector<vector<vector<int>>> ruedas_TS = tabu_search_epl_reducido(distancia_optima, fecha_boxing_day, fecha_new_year, rueda1_inicial, rueda2_inicial, equipos_fuertes, equipos_UCL, equipos_UEL, equipos_UECL, equipos_emparejados, fechas_previas_FA_Cup, fechas_posteriores_FA_Cup, fechas_previas_UCL, fechas_posteriores_UCL, fechas_previas_UEL, fechas_posteriores_UEL, fechas_previas_UECL, fechas_posteriores_UECL, fechas_bank_holidays, solicituedes_visitante, distancias, largos_listas_equipos, largos_listas_fechas, probabilidades_operadores, iteraciones,semilla);
 
     vector<vector<int>> rueda1_TS = ruedas_TS[0];
     vector<vector<int>> rueda2_TS = ruedas_TS[1];

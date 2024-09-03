@@ -15,7 +15,7 @@ int equipo_fuerte_fecha_internacional(vector<vector<int>> rueda1, vector<vector<
     
     int cantidad = 0;
     int rival;
-    vector<int> equipos_con_conflicto;
+    //vector<int> equipos_con_conflicto;
 
     for (int i = 0; i < equipos_internacional.size(); i++)
     {
@@ -34,7 +34,7 @@ int equipo_fuerte_fecha_internacional(vector<vector<int>> rueda1, vector<vector<
             for(int k = 0; k< equipos_fuertes.size(); k++){
                 if (rival == equipos_fuertes[k]){
                     cantidad++;
-                    equipos_con_conflicto.push_back(equipos_internacional[i]);
+                    //equipos_con_conflicto.push_back(equipos_internacional[i]);
                 }
             }   
         }
@@ -52,7 +52,7 @@ int distancia_fecha_enfrentarse_nuevamente(vector<vector<int>> rueda1, vector<ve
     int inicio_rueda_1 = rueda1[0].size() - minima_diferencia/2;
 
     
-    vector<int> equipos_con_conflicto;
+    //vector<int> equipos_con_conflicto;
     int cantidad_conflicto = 0;
     int cant_fechas_rueda = rueda1[0].size();
     int cant_equipos = rueda1.size();
@@ -66,9 +66,11 @@ int distancia_fecha_enfrentarse_nuevamente(vector<vector<int>> rueda1, vector<ve
                 if (abs(rueda1[i][j]) == abs(rueda2[i][k])){
                     //cout << "Equipo " << i+1 << " se enfrenta a " << abs(rueda1[i][j]) << " en la fecha " << j+1 << " y en la fecha " << k+1 << " de la segunda rueda" << endl;
                     cantidad_conflicto++;
+                    /*
                     if (is_in_vector(equipos_con_conflicto, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                         equipos_con_conflicto.push_back(i+1);
                     }
+                    */
                 }
             }
         }
@@ -81,7 +83,7 @@ int distancia_fecha_enfrentarse_nuevamente(vector<vector<int>> rueda1, vector<ve
 //C13
 int local_3partidos(vector<vector<int>> rueda1, vector<vector<int>> rueda2){
     int cantidad_conflictos = 0;
-    vector<int> equipos_con_conflictos;
+    //vector<int> equipos_con_conflictos;
 
     for (int i = 0; i < rueda1.size(); i++){
 
@@ -89,25 +91,31 @@ int local_3partidos(vector<vector<int>> rueda1, vector<vector<int>> rueda2){
         for (int j = 0; j < rueda1[0].size()-2; j++){
             if (rueda1[i][j] > 0 && rueda1[i][j+1] > 0 && rueda1[i][j+2] > 0){
                 cantidad_conflictos++;
+                /*
                 if (is_in_vector(equipos_con_conflictos, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                     equipos_con_conflictos.push_back(i+1);
                 }
+                */
             }
         }
 
         //revision fechas entre ruedas
         if (rueda1[i][rueda1[0].size()-2] > 0 && rueda1[i][rueda1[0].size()-1] > 0 && rueda2[i][0] > 0){
             cantidad_conflictos++;
+            /*
             if (is_in_vector(equipos_con_conflictos, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                 equipos_con_conflictos.push_back(i+1);
             }
+            */
         }
 
         if (rueda1[i][rueda1[0].size()-1] > 0 && rueda2[i][0] > 0 && rueda2[i][1] > 0){
             cantidad_conflictos++;
+            /*
             if (is_in_vector(equipos_con_conflictos, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                 equipos_con_conflictos.push_back(i+1);
             }
+            */
         }
 
         //revisando segunda rueda
@@ -115,9 +123,11 @@ int local_3partidos(vector<vector<int>> rueda1, vector<vector<int>> rueda2){
         for (int j = 0; j < rueda2[0].size()-2; j++){
             if (rueda2[i][j] > 0 && rueda2[i][j+1] > 0 && rueda2[i][j+2] > 0){
                 cantidad_conflictos++;
+                /*
                 if (is_in_vector(equipos_con_conflictos, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                     equipos_con_conflictos.push_back(i+1);
                 }
+                */
             }
         }
     }
@@ -128,7 +138,7 @@ int local_3partidos(vector<vector<int>> rueda1, vector<vector<int>> rueda2){
 // C14
 int visitante_3partidos(vector<vector<int>> rueda1, vector<vector<int>> rueda2){
     int cantidad_conflictos = 0;
-    vector<int> equipos_con_conflictos;
+    //vector<int> equipos_con_conflictos;
 
     for (int i = 0; i < rueda1.size(); i++){
 
@@ -136,25 +146,31 @@ int visitante_3partidos(vector<vector<int>> rueda1, vector<vector<int>> rueda2){
         for (int j = 0; j < rueda1[0].size()-2; j++){
             if (rueda1[i][j] < 0 && rueda1[i][j+1] < 0 && rueda1[i][j+2] < 0){
                 cantidad_conflictos++;
+                /*
                 if (is_in_vector(equipos_con_conflictos, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                     equipos_con_conflictos.push_back(i+1);
                 }
+                */
             }
         }
 
         //revision fechas entre ruedas
         if (rueda1[i][rueda1[0].size()-2] < 0 && rueda1[i][rueda1[0].size()-1] < 0 && rueda2[i][0] < 0){
             cantidad_conflictos++;
+            /*
             if (is_in_vector(equipos_con_conflictos, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                 equipos_con_conflictos.push_back(i+1);
             }
+            */
         }
 
         if (rueda1[i][rueda1[0].size()-1] < 0 && rueda2[i][0] < 0 && rueda2[i][1] < 0){
             cantidad_conflictos++;
+            /*
             if (is_in_vector(equipos_con_conflictos, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                 equipos_con_conflictos.push_back(i+1);
             }
+            */
         }
 
         //revisando segunda rueda
@@ -162,9 +178,11 @@ int visitante_3partidos(vector<vector<int>> rueda1, vector<vector<int>> rueda2){
         for (int j = 0; j < rueda2[0].size()-2; j++){
             if (rueda2[i][j] < 0 && rueda2[i][j+1] < 0 && rueda2[i][j+2] < 0){
                 cantidad_conflictos++;
+                /*
                 if (is_in_vector(equipos_con_conflictos, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                     equipos_con_conflictos.push_back(i+1);
                 }
+                */
             }
         }
     }
@@ -177,20 +195,24 @@ int revision_primeras_ultimas_fechas_visitante(vector<vector<int>> rueda1, vecto
     int cantidad_conflictos = 0;
     int cant_fechas_rueda = rueda1[0].size();
     int cant_equipos = rueda1.size();
-    vector<int> equipos_con_conflicto;
+    //vector<int> equipos_con_conflicto;
 
     for (int i = 0; i < cant_equipos; i++){
         if (rueda1[i][0] < 0 && rueda1[i][1] < 0){
             cantidad_conflictos++;
+            /*
             if (is_in_vector(equipos_con_conflicto, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                 equipos_con_conflicto.push_back(i+1);
             }
+            */
         }
         if (rueda2[i][cant_fechas_rueda-2] < 0 && rueda2[i][cant_fechas_rueda-1] < 0){
             cantidad_conflictos++;
+            /*
             if (is_in_vector(equipos_con_conflicto, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                 equipos_con_conflicto.push_back(i+1);
             }
+            */
         }
     
     }
@@ -203,20 +225,24 @@ int revision_primeras_ultimas_fechas_local(vector<vector<int>> rueda1, vector<ve
     int cantidad_conflictos = 0;
     int cant_fechas_rueda = rueda1[0].size();
     int cant_equipos = rueda1.size();
-    vector<int> equipos_con_conflicto;
+    //vector<int> equipos_con_conflicto;
 
     for (int i = 0; i < cant_equipos; i++){
         if (rueda1[i][0] > 0 && rueda1[i][1] > 0){
             cantidad_conflictos++;
+            /*
             if (is_in_vector(equipos_con_conflicto, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                 equipos_con_conflicto.push_back(i+1);
             }
+            */
         }
         if (rueda2[i][cant_fechas_rueda-2] > 0 && rueda2[i][cant_fechas_rueda-1] > 0){
             cantidad_conflictos++;
+            /*
             if (is_in_vector(equipos_con_conflicto, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                 equipos_con_conflicto.push_back(i+1);
             }
+            */
         }
     
     }
@@ -230,7 +256,7 @@ int balance_bank_holidays(vector<vector<int>> rueda1, vector<vector<int>> rueda2
     int cant_fechas_rueda = rueda1[0].size();
     int cant_equipos = rueda1.size();
     //int fechas_revisar_segunda_rueda;
-    vector<int> equipos_con_conflicto;
+    //vector<int> equipos_con_conflicto;
 
     for (int i = 0; i < cant_equipos; i++){
         int contador_local = 0;
@@ -255,9 +281,11 @@ int balance_bank_holidays(vector<vector<int>> rueda1, vector<vector<int>> rueda2
         }
         if (abs(contador_local - contador_visitante) > 1){
             cantidad_conflictos++;
+            /*
             if (is_in_vector(equipos_con_conflicto, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                 equipos_con_conflicto.push_back(i+1);
             }
+            */
         }
     }
     return cantidad_conflictos;
@@ -268,17 +296,19 @@ int balance_bank_holidays(vector<vector<int>> rueda1, vector<vector<int>> rueda2
 int enfrentamientos_entre_equipos_fuertes(vector<vector<int>> rueda1, vector<vector<int>> rueda2, vector<int> equipos_fuertes, int fecha_comparacion){
     int cantidad_conflictos = 0;
     int fecha_segunda_rueda;
-    vector<int> equipos_con_conflictos;
+    //vector<int> equipos_con_conflictos;
 
     if (fecha_comparacion <= rueda1[0].size()){ // la fecha esta en la primera rueda
         //cout << "Fecha en primera rueda" << endl;
         for (int i = 0; i < equipos_fuertes.size(); i++){
             if (is_in_vector(equipos_fuertes, abs(rueda1[equipos_fuertes[i]-1][fecha_comparacion-1]))){ // si el equipo ya esta en la lista de los conflictos no lo agrega
-                equipos_con_conflictos.push_back(equipos_fuertes[i]);
+                //equipos_con_conflictos.push_back(equipos_fuertes[i]);
                 cantidad_conflictos++;
+                /*
                 if (is_in_vector(equipos_con_conflictos, equipos_fuertes[i]) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                     equipos_con_conflictos.push_back(equipos_fuertes[i]);
                 }
+                */
             }
         }
     }
@@ -287,11 +317,13 @@ int enfrentamientos_entre_equipos_fuertes(vector<vector<int>> rueda1, vector<vec
         fecha_segunda_rueda = fecha_comparacion - rueda1[0].size();
         for (int i = 0; i < equipos_fuertes.size(); i++){
             if (is_in_vector(equipos_fuertes, abs(rueda2[equipos_fuertes[i]-1][fecha_segunda_rueda-1]))){ // si el equipo ya esta en la lista de los conflictos no lo agrega
-                equipos_con_conflictos.push_back(equipos_fuertes[i]);
+                //equipos_con_conflictos.push_back(equipos_fuertes[i]);
                 cantidad_conflictos++;
+                /*
                 if (is_in_vector(equipos_con_conflictos, equipos_fuertes[i]) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                     equipos_con_conflictos.push_back(equipos_fuertes[i]);
                 }
+                */
             }
         }
     }
@@ -334,7 +366,7 @@ int solicitud_no_jugar_como_local (vector<vector<int>> rueda1, vector<vector<int
 // C12c
 int distinta_condicion_boxingday_newyear(vector<vector<int>> rueda1, vector<vector<int>> rueda2, int fecha_boxing_day, int fecha_new_year){
     int cantidad_conflictos = 0;
-    vector<int> equipos_con_conflictos;
+    //vector<int> equipos_con_conflictos;
     int rueda_boxing_day, rueda_new_year;
 
     if (fecha_boxing_day <= rueda1[0].size()){ // fecha esta en la primera rueda
@@ -357,19 +389,19 @@ int distinta_condicion_boxingday_newyear(vector<vector<int>> rueda1, vector<vect
         if (rueda_boxing_day == 1 && rueda_new_year == 1){
             if(rueda1[i][fecha_boxing_day-1] > 0 && rueda1[i][fecha_new_year-1] > 0 || rueda1[i][fecha_boxing_day-1] < 0 && rueda1[i][fecha_new_year-1] < 0){
                 cantidad_conflictos++;
-                equipos_con_conflictos.push_back(i+1);
+                //equipos_con_conflictos.push_back(i+1);
             }
         }
         else if (rueda_boxing_day == 1 && rueda_new_year == 2){
             if(rueda1[i][fecha_boxing_day-1] > 0 && rueda2[i][fecha_new_year-1] > 0 || rueda1[i][fecha_boxing_day-1] < 0 && rueda2[i][fecha_new_year-1] < 0){
                 cantidad_conflictos++;
-                equipos_con_conflictos.push_back(i+1);
+                //equipos_con_conflictos.push_back(i+1);
             }
         }
         else if (rueda_boxing_day == 2 && rueda_new_year == 2){
             if(rueda1[i][fecha_boxing_day-1] > 0 && rueda2[i][fecha_new_year-1] > 0 || rueda1[i][fecha_boxing_day-1] < 0 && rueda2[i][fecha_new_year-1] < 0){
                 cantidad_conflictos++;
-                equipos_con_conflictos.push_back(i+1);
+                //equipos_con_conflictos.push_back(i+1);
             }
         }
             
@@ -381,7 +413,7 @@ int distinta_condicion_boxingday_newyear(vector<vector<int>> rueda1, vector<vect
 // C105
 int no_jugar_ambos_como_visitante(vector<vector<int>> rueda1, vector<vector<int>> rueda2, vector<int> fechas_previas, vector<int> fechas_posteriores){
     int cantidad_conflictos = 0;
-    vector<int> equipos_con_conflictos;
+    //vector<int> equipos_con_conflictos;
     int ronda_fecha_previa, ronda_fecha_posterior, cantidad_visitante, fecha_previa_ronda_2, fecha_posterior_ronda_2;
 
     for (int i = 0; i < rueda1.size(); i++){ // recorriendo por equipo
@@ -435,9 +467,11 @@ int no_jugar_ambos_como_visitante(vector<vector<int>> rueda1, vector<vector<int>
                 cantidad_conflictos++;
                 //cout << "Hay conflicto en la fechas " << fechas_previas[j] << " y " << fechas_posteriores[j] << " para el equipo " << i+1 << endl;
 
+                /*
                 if (is_in_vector(equipos_con_conflictos, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                     equipos_con_conflictos.push_back(i+1);
                 }
+                */
             }
         }
     }
@@ -449,7 +483,7 @@ int no_jugar_ambos_como_visitante(vector<vector<int>> rueda1, vector<vector<int>
 // C108
 int rival_boxing_day_new_year_diferente(vector<vector<int>> rueda1, vector<vector<int>> rueda2, int fecha_boxing_day, int fecha_new_year){
     int cantidad_conflictos = 0;
-    vector<int> equipos_con_conflictos;
+    //vector<int> equipos_con_conflictos;
     int rueda_boxing_day, rueda_new_year;
 
     if (fecha_boxing_day <= rueda1[0].size()){ // fecha esta en la primera rueda
@@ -472,25 +506,31 @@ int rival_boxing_day_new_year_diferente(vector<vector<int>> rueda1, vector<vecto
         if (rueda_boxing_day == 1 && rueda_new_year == 1){
             if(abs(rueda1[i][fecha_boxing_day-1]) == abs(rueda1[i][fecha_new_year-1])){
                 cantidad_conflictos++;
+                /*
                 if (is_in_vector(equipos_con_conflictos, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                     equipos_con_conflictos.push_back(i+1);
                 }
+                */
             }
         }
         else if (rueda_boxing_day == 1 && rueda_new_year == 2){
             if(abs(rueda1[i][fecha_boxing_day-1]) == abs(rueda2[i][fecha_new_year-1])){
                 cantidad_conflictos++;
+                /*
                 if (is_in_vector(equipos_con_conflictos, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                     equipos_con_conflictos.push_back(i+1);
                 }
+                */
             }
         }
         else if (rueda_boxing_day == 2 && rueda_new_year == 2){
             if(abs(rueda2[i][fecha_boxing_day-1]) == abs(rueda2[i][fecha_new_year-1])){
                 cantidad_conflictos++;
+                /*
                 if (is_in_vector(equipos_con_conflictos, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                     equipos_con_conflictos.push_back(i+1);
                 }
+                */
             }
         }
     } 
@@ -503,7 +543,7 @@ int rival_boxing_day_new_year_diferente(vector<vector<int>> rueda1, vector<vecto
 int evitar_localias_equipos_emparejados(vector<vector<int>> rueda1, vector<vector<int>> rueda2, vector<int> equipos_emparejados){
     int cantidad_conflictos = 0;
     int equipo_emparejado;
-    vector<int> equipos_con_conflictos;
+    //vector<int> equipos_con_conflictos;
 
     for (int i = 0; i < rueda1.size(); i++){ // recorriendo los equipos
         if (equipos_emparejados[i] > 0){ // si el equipo tiene un rival emparejado
@@ -513,13 +553,13 @@ int evitar_localias_equipos_emparejados(vector<vector<int>> rueda1, vector<vecto
             //revisando primera rueda
             for (int j = 0; j < rueda1[0].size(); j++){
                 if (rueda1[i][j] > 0 && rueda1[equipo_emparejado-1][j] > 0){
-
                     //cout << "Equipo " << i+1 << " y " << equipo_emparejado << " estan emparejados en la fecha " << j+1 << endl;
-
                     cantidad_conflictos++;
+                    /*
                     if (is_in_vector(equipos_con_conflictos, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                         equipos_con_conflictos.push_back(i+1);
                     }
+                    */
                 }
             }
 
@@ -527,9 +567,11 @@ int evitar_localias_equipos_emparejados(vector<vector<int>> rueda1, vector<vecto
             for (int j = 0; j < rueda2[0].size(); j++){
                 if (rueda2[i][j] > 0 && rueda2[equipo_emparejado-1][j] > 0){
                     cantidad_conflictos++;
+                    /*
                     if (is_in_vector(equipos_con_conflictos, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                         equipos_con_conflictos.push_back(i+1);
                     }
+                    */
                 }
             }
 
@@ -671,7 +713,7 @@ int balance_local_visitante(vector<vector<int>> rueda1, vector<vector<int>> rued
     int cant_fechas_rueda = rueda1[0].size();
     int cant_equipos = rueda1.size();
     int fechas_revisar_segunda_rueda;
-    vector<int> equipos_con_conflicto;
+    //vector<int> equipos_con_conflicto;
 
     if(fecha_comparacion <= cant_fechas_rueda){ // solo se revisa la primera rueda
         //cout << "Solo se revisa la primera rueda" << endl;
@@ -688,7 +730,7 @@ int balance_local_visitante(vector<vector<int>> rueda1, vector<vector<int>> rued
             }
             if (abs(contador_local - contador_visitante) > 1){
                 cantidad__equipos_con_conflictos++;
-                equipos_con_conflicto.push_back(i+1);
+                //equipos_con_conflicto.push_back(i+1);
                 //cout << "Equipo con desbalance: " << i+1 << " con la bank holiday " << fecha_comparacion << endl;
 
             }
@@ -720,7 +762,7 @@ int balance_local_visitante(vector<vector<int>> rueda1, vector<vector<int>> rued
             if (abs(contador_local - contador_visitante) > 1){
                 cantidad__equipos_con_conflictos++;
                 //cout << "Equipo con desbalance: " << i+1 << " con la bank holiday " << fecha_comparacion << endl;
-                equipos_con_conflicto.push_back(i+1);
+                //equipos_con_conflicto.push_back(i+1);
             }
         }
     }
@@ -738,7 +780,7 @@ int balance_local_visitante(vector<vector<int>> rueda1, vector<vector<int>> rued
 
 int revision_equipos_zona(vector<vector<int>> rueda1, vector<vector<int>> rueda2, vector<int> equipos_norte, vector<int> equipos_centro, vector<int> equipos_sur){
     int cantidad_conflictos = 0;
-    vector<int> equipos_con_conflictos;
+    //vector<int> equipos_con_conflictos;
     int rival;
     int rueda_fecha;
     int equipo_revision,rival_1, rival_2;
@@ -755,9 +797,11 @@ int revision_equipos_zona(vector<vector<int>> rueda1, vector<vector<int>> rueda2
                 rival_2 = abs(rueda1[equipo_revision-1][j+1]);
                 if (is_in_vector(equipos_sur, rival_1) == true && is_in_vector(equipos_sur, rival_2) == true){ // los dos equipos son del sur
                     cantidad_conflictos++;
+                    /*
                     if (is_in_vector(equipos_con_conflictos, equipos_norte[i]) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                         equipos_con_conflictos.push_back(equipos_norte[i]);
                     }
+                    */
                 }
                 
             }
@@ -769,9 +813,11 @@ int revision_equipos_zona(vector<vector<int>> rueda1, vector<vector<int>> rueda2
             rival_2 = abs(rueda1[equipo_revision-1][0]);
             if (is_in_vector(equipos_sur, rival_1) == true && is_in_vector(equipos_sur, rival_2) == true){ // los dos equipos son del sur
                 cantidad_conflictos++;
+                /*
                 if (is_in_vector(equipos_con_conflictos, equipos_norte[i]) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                     equipos_con_conflictos.push_back(equipos_norte[i]);
                 }
+                */
             }
                 
         }
@@ -783,9 +829,11 @@ int revision_equipos_zona(vector<vector<int>> rueda1, vector<vector<int>> rueda2
                 rival_2 = abs(rueda2[equipo_revision-1][j+1]);
                 if (is_in_vector(equipos_sur, rival_1) == true && is_in_vector(equipos_sur, rival_2) == true){ // los dos equipos son del sur
                     cantidad_conflictos++;
+                    /*
                     if (is_in_vector(equipos_con_conflictos, equipos_norte[i]) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                         equipos_con_conflictos.push_back(equipos_norte[i]);
                     }
+                    */
                 }
                 
             }
@@ -803,9 +851,11 @@ int revision_equipos_zona(vector<vector<int>> rueda1, vector<vector<int>> rueda2
                 rival_2 = abs(rueda1[equipo_revision-1][j+1]);
                 if (!(is_in_vector(equipos_centro, rival_1) == true || is_in_vector(equipos_centro, rival_2) == true)){ // si ninguno de los dos equipos es del centro
                     cantidad_conflictos++;
+                    /*
                     if (is_in_vector(equipos_con_conflictos, equipos_centro[i]) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                         equipos_con_conflictos.push_back(equipos_centro[i]);
                     }
+                    */
                 }
             }
         }    
@@ -816,9 +866,11 @@ int revision_equipos_zona(vector<vector<int>> rueda1, vector<vector<int>> rueda2
             rival_2 = abs(rueda2[equipo_revision-1][0]);
             if (!(is_in_vector(equipos_centro, rival_1) == true || is_in_vector(equipos_centro, rival_2) == true)){ // si ninguno de los dos equipos es del centro
                 cantidad_conflictos++;
+                /* 
                 if (is_in_vector(equipos_con_conflictos, equipos_centro[i]) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                     equipos_con_conflictos.push_back(equipos_centro[i]);
                 }
+                */
             }
         }
 
@@ -829,9 +881,11 @@ int revision_equipos_zona(vector<vector<int>> rueda1, vector<vector<int>> rueda2
                 rival_2 = abs(rueda2[equipo_revision-1][j+1]);
                 if (!(is_in_vector(equipos_centro, rival_1) == true || is_in_vector(equipos_centro, rival_2) == true)){ // si ninguno de los dos equipos es del centro
                     cantidad_conflictos++;
+                    /*
                     if (is_in_vector(equipos_con_conflictos, equipos_centro[i]) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                         equipos_con_conflictos.push_back(equipos_centro[i]);
                     }
+                    */
                 }
             }
         }   
@@ -849,9 +903,11 @@ int revision_equipos_zona(vector<vector<int>> rueda1, vector<vector<int>> rueda2
                 rival_2 = abs(rueda1[equipo_revision-1][j+1]);
                 if (is_in_vector(equipos_norte, rival_1) == true && is_in_vector(equipos_norte, rival_2) == true){ // los dos equipos son del norte
                     cantidad_conflictos++;
+                    /*
                     if (is_in_vector(equipos_con_conflictos, equipos_sur[i]) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                         equipos_con_conflictos.push_back(equipos_sur[i]);
                     }
+                    */
                 }
                 
             }
@@ -863,9 +919,11 @@ int revision_equipos_zona(vector<vector<int>> rueda1, vector<vector<int>> rueda2
             rival_2 = abs(rueda1[equipo_revision-1][0]);
             if (is_in_vector(equipos_norte, rival_1) == true && is_in_vector(equipos_norte, rival_2) == true){ // los dos equipos son del sur
                 cantidad_conflictos++;
+                /*
                 if (is_in_vector(equipos_con_conflictos, equipos_sur[i]) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                     equipos_con_conflictos.push_back(equipos_sur[i]);
                 }
+                */
             }
                 
         }
@@ -877,9 +935,11 @@ int revision_equipos_zona(vector<vector<int>> rueda1, vector<vector<int>> rueda2
                 rival_2 = abs(rueda2[equipo_revision-1][j+1]);
                 if (is_in_vector(equipos_norte, rival_1) == true && is_in_vector(equipos_norte, rival_2) == true){ // los dos equipos son del norte
                     cantidad_conflictos++;
+                    /*
                     if (is_in_vector(equipos_con_conflictos, equipos_sur[i]) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                         equipos_con_conflictos.push_back(equipos_sur[i]);
                     }
+                    */
                 }
                 
             }
@@ -892,7 +952,7 @@ int revision_equipos_zona(vector<vector<int>> rueda1, vector<vector<int>> rueda2
 // evitar clasicos (enfrentemientos entre equipos fuertes) en las primeras 3 y ultimas 3 fechas
 int enfrentamientos_entre_equipos_fuertes(vector<vector<int>> rueda1, vector<vector<int>> rueda2, vector<int> equipos_fuertes, vector<int> fechas_enfrentamientos){
     int cantidad_conflictos = 0;
-    vector<int> equipos_con_conflictos;
+    //vector<int> equipos_con_conflictos;
     int rueda_fecha, rival;
     int fecha_en_rueda;
 
@@ -916,9 +976,11 @@ int enfrentamientos_entre_equipos_fuertes(vector<vector<int>> rueda1, vector<vec
 
             if (is_in_vector(equipos_fuertes, rival) == true){
                 cantidad_conflictos++;
+                /*
                 if (is_in_vector(equipos_con_conflictos, equipos_fuertes[i]) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                     equipos_con_conflictos.push_back(equipos_fuertes[i]);
                 }
+                */
             }
         }
     }
@@ -929,7 +991,7 @@ int enfrentamientos_entre_equipos_fuertes(vector<vector<int>> rueda1, vector<vec
 //basta con revisar una rueda, ya que si se cumple en la primera rueda se cumple en la segunda y viceversa
 int clasicos_local_visitante(vector<vector<int>> rueda1, vector<vector<int>> rueda2, vector<int> equipos_fuertes){
     int cantidad_conflictos = 0;
-    vector<int> equipos_con_conflictos;
+    //vector<int> equipos_con_conflictos;
     int rival;
     int rueda_fecha, contador_local, contador_visitante;
 
@@ -952,9 +1014,11 @@ int clasicos_local_visitante(vector<vector<int>> rueda1, vector<vector<int>> rue
 
         if (contador_local != contador_visitante){ // no se juega un clasico como local y uno como visita en esa rueda
             cantidad_conflictos++;
+            /*
             if (is_in_vector(equipos_con_conflictos, equipos_fuertes[i]) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                 equipos_con_conflictos.push_back(equipos_fuertes[i]);
             }
+            */
         }
 
     }
@@ -965,7 +1029,7 @@ int clasicos_local_visitante(vector<vector<int>> rueda1, vector<vector<int>> rue
 int fechas_consecutivas_equipos_fuertes(vector<vector<int>> rueda1, vector<vector<int>> rueda2, vector<int> equipos_fuertes){
     int rival_1,rival_2;
     int cantidad_conflictos = 0;
-    vector<int> equipos_con_conflictos;
+    //vector<int> equipos_con_conflictos;
 
     for(int i = 0; i < rueda1.size(); i++){
         //revisando primera rueda
@@ -975,9 +1039,11 @@ int fechas_consecutivas_equipos_fuertes(vector<vector<int>> rueda1, vector<vecto
                 rival_2 = abs(rueda1[i][j+1]);
                 if (is_in_vector(equipos_fuertes, rival_1) == true && is_in_vector(equipos_fuertes, rival_2) == true){ // los dos equipos son rivales fuertes
                     cantidad_conflictos++;
+                    /*
                     if (is_in_vector(equipos_con_conflictos, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                         equipos_con_conflictos.push_back(i+1);
                     }
+                    */
                 }
             }
         }
@@ -988,9 +1054,11 @@ int fechas_consecutivas_equipos_fuertes(vector<vector<int>> rueda1, vector<vecto
             rival_2 = abs(rueda1[i][0]);
             if (is_in_vector(equipos_fuertes, rival_1) == true && is_in_vector(equipos_fuertes, rival_2) == true){ // los dos equipos son del sur
                 cantidad_conflictos++;
+                /*
                 if (is_in_vector(equipos_con_conflictos, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                     equipos_con_conflictos.push_back(i+1);
                 }
+                */
             }
         }
 
@@ -1001,9 +1069,11 @@ int fechas_consecutivas_equipos_fuertes(vector<vector<int>> rueda1, vector<vecto
                 rival_2 = abs(rueda2[i][j+1]);
                 if (is_in_vector(equipos_fuertes, rival_1) == true && is_in_vector(equipos_fuertes, rival_2) == true){ // los dos equipos son del sur
                     cantidad_conflictos++;
+                    /*
                     if (is_in_vector(equipos_con_conflictos, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                         equipos_con_conflictos.push_back(i+1);
                     }
+                    */
                 }
             }
         }
@@ -1014,7 +1084,7 @@ int fechas_consecutivas_equipos_fuertes(vector<vector<int>> rueda1, vector<vecto
 // equipos en zonas de vacaciones
 int equipos_zonas_vacaciones(vector<vector<int>> rueda1, vector<int> equipos_vacaciones,vector<int> equipos_fuertes, int fecha_limite_vacaciones){
     int cantidad_conflictos = 0;
-    vector<int> equipos_con_conflictos;
+    //vector<int> equipos_con_conflictos;
     bool cumple_restriccion;
 
     // los equipos en zonas de vacaciones deben jugar como local contra un equipo fuerte antes de la fecha limite de vacaciones
@@ -1028,9 +1098,11 @@ int equipos_zonas_vacaciones(vector<vector<int>> rueda1, vector<int> equipos_vac
         }
         if (cumple_restriccion == false){
             cantidad_conflictos++;
+            /*
             if (is_in_vector(equipos_con_conflictos, equipos_vacaciones[i]) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                 equipos_con_conflictos.push_back(equipos_vacaciones[i]);
             }
+            */
         }
     }
     return cantidad_conflictos;
@@ -1041,24 +1113,28 @@ int contador_breaks(vector<vector<int>> rueda1, vector<vector<int>> rueda2){
     int cantidad_breaks = 0;
     int cant_fechas_rueda = rueda1[0].size();
     int cant_equipos = rueda1.size();
-    vector<int> equipos_con_breakes;
+    //vector<int> equipos_con_breakes;
     
     //revision primera rueda
     for (int i = 0; i < cant_equipos; i++){
         for (int j = 0; j < cant_fechas_rueda-1; j++){
             if (rueda1[i][j] < 0 && rueda1[i][j+1] < 0 && rueda1[i][j] > 0 && rueda1[i][j+1] > 0){
                 cantidad_breaks++;
+                /*
                 if (is_in_vector(equipos_con_breakes, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                         equipos_con_breakes.push_back(i+1);
                 }
+                */
             }
         }
         //revision ultima fecha con primera de la siguiente rueda
         if (rueda1[i][cant_fechas_rueda-1] < 0 && rueda2[i][0] < 0 && rueda1[i][cant_fechas_rueda-1] > 0 && rueda2[i][0] > 0){
             cantidad_breaks++;
+            /*
             if (is_in_vector(equipos_con_breakes, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                     equipos_con_breakes.push_back(i+1);
             }
+            */
         }
     }
 
@@ -1067,9 +1143,11 @@ int contador_breaks(vector<vector<int>> rueda1, vector<vector<int>> rueda2){
         for (int j = 0; j < cant_fechas_rueda-1; j++){
             if (rueda2[i][j] < 0 && rueda2[i][j+1] < 0 && rueda2[i][j] > 0 && rueda2[i][j+1] > 0){
                 cantidad_breaks++;
+                /*
                 if (is_in_vector(equipos_con_breakes, i+1) == false){ // si el equipo ya esta en la lista de los conflictos no lo agrega
                     equipos_con_breakes.push_back(i+1);
                 }
+                */
             }
         }
     } 
@@ -1082,7 +1160,7 @@ int contador_breaks(vector<vector<int>> rueda1, vector<vector<int>> rueda2){
 int equipos_local_simultaneo(vector<vector<int>> rueda1, vector<vector<int>> rueda2, vector<int> equipos_simultaneo, int min_simultaneo, int max_simultaneo){
     int cantidad_conflictos = 0;
     int contador_localias;
-    vector<int> equipos_con_conflictos;
+    //vector<int> equipos_con_conflictos;
 
     // se debe revisar fecha por fecha los equipos sleccionados y ver si juegan como local o no
 

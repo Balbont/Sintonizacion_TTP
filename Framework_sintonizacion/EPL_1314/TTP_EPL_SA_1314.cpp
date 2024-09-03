@@ -316,7 +316,7 @@ int main(int argc, char *argv[]){
     int evaluacion_actual_SA = funcion_evaluacion_epl(distancia_optima, fecha_boxing_day, fecha_new_year, rueda1_SA, rueda2_SA, equipos_fuertes, equipos_UCL, equipos_UEL, equipos_UECL, equipos_emparejados, fechas_previas_FA_Cup, fechas_posteriores_FA_Cup, fechas_previas_UCL, fechas_posteriores_UCL, fechas_previas_UEL, fechas_posteriores_UEL, fechas_previas_UECL, fechas_posteriores_UECL, fechas_bank_holidays, solicituedes_visitante, distancias);
     int distancia_total_SA = distancia_festivos(rueda1_SA, rueda2_SA, distancias, fecha_boxing_day, fecha_new_year);
 
-    bool info_completa = false;
+    bool info_completa = true;
 
     if (!info_completa){
         cout << evaluacion_actual_SA << endl;
